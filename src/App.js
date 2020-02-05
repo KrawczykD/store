@@ -1,92 +1,84 @@
 import React from 'react';
+import List from './components/list';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      works!
-    </div>
-  );
+  const {
+    Stitch,
+    RemoteMongoClient,
+    AnonymousCredential
+    } = require('mongodb-stitch-browser-sdk');
+
+    const client = Stitch.initializeDefaultAppClient('werhouse-pnqbo');
+    const db = client.getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas').db('refurb');
+    client.auth.loginWithCredential(new AnonymousCredential());
+
+class App extends React.Component {
+
+    state = {
+      palletList: [],
+    }
+
+    componentDidMount(){
+      this.pullList();
+    }
+
+    componentDidUpdate(){
+
+    }
+
+
+  addPallet = () =>{
+      db.collection("electric")
+      .insertOne({ owner_id : client.auth.user.id, customer: 'Meterfit' , meterType: "5299" , qty: 100 , palletNumber: Math.random(30) , trolleyNumber : 100 , status : "read to go" , date: new Date().toDateString() , description : " Description ..." , location : "10-10-10"})
+      this.pullList();
+    };
+
+    pullList = () =>{
+    db.collection("electric")
+    .find({"customer" : { "$exists": true }}, {limit: 1000})
+    .toArray()
+    .then(item => {
+      setTimeout(()=>{
+        this.setState({palletList:item})
+      },0)
+      })
+    }
+
+    deleteItem = async (id)=>{
+      await db.collection("electric").deleteOne({"_id": { "$oid" : `${id}` }});
+      await this.pullList();
+    }
+
+    updateItem = async (id)=>{
+      await db.collection("electric").updateOne({"_id": { "$oid" : `${id}` }}, {"$set": {"customer":"update"}} , { "upsert": false });
+      await this.pullList();
+    }
+
+    update = (e, id)=>{
+      this.updateItem(id);
+    }
+
+    delete = (e,id)=>{
+      this.deleteItem(id);
+    }
+
+    // confirmAlert = (id) =>{
+    //   if (window.confirm("Do you want delete this pallet?")) {
+    //     this.deleteItem(id);
+    //     this.pullList();  
+    //   } else {
+    //     return 0;
+    //   }
+    
+
+
+  render(){
+    return (
+      <div className="App">
+        <List palletList = {this.state.palletList} update={this.update} delete={this.delete} addPallet={this.addPallet}></List>
+      </div>
+    );
+  }
 }
 
 export default App;
-
-
-
-// const {
-//   Stitch,
-//   RemoteMongoClient,
-//   AnonymousCredential
-// } = require('mongodb-stitch-browser-sdk');
-
-// const client = Stitch.initializeDefaultAppClient('werhouse-pnqbo');
-
-// const db = client.getServiceClient(RemoteMongoClient.factory, 'mongodb-atlas').db('refurb');
-
-// client.auth.loginWithCredential(new AnonymousCredential()).then(user =>
-// db.collection('electric').updateOne({owner_id: client.auth.user.id}, {$set:{number:42}}, {upsert:true})
-// ).then(() =>
-// db.collection('electric').find({owner_id: client.auth.user.id}, { limit: 100}).asArray()
-// ).then(docs => {
-//   console.log("Found docs", docs)
-//   console.log("[MongoDB Stitch] Connected to Stitch")
-// }).catch(err => {
-//   console.error(err)
-// });
-
-
-
-// <!DOCTYPE html>
-// <html lang="en">
-// <head>
-//   <meta charset="UTF-8">
-//   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-//   <title>Document</title>
-
-//   <script src="https://s3.amazonaws.com/stitch-sdks/js/bundles/4.6.0/stitch.js"></script>
-// <script>
-//   const client = stitch.Stitch.initializeDefaultAppClient('werhouse-pnqbo');
-
-//   const db = client.getServiceClient(stitch.RemoteMongoClient.factory, 'mongodb-atlas').db('refurb');
-
-//   function addComment() {
-//     let data = new Date();
-//     console.log(data)
-  
-//   db.collection("electric")
-//     .insertOne({ owner_id : client.auth.user.id, customer: 'Macquarie' , data: data , meterType: "5299"})
-//     .then(displayComments);
-// }
-
-//   function displayComments() {
-
-  
-//   db.collection("electric")
-//     .find({}, {limit: 1000})
-//     .toArray()
-//     .then(item => {
-//       let list = document.createElement("ul");
-//       list.classList.add("list");
-
-//       item.forEach(item => {
-//       let li = document.createElement("li");
-//       li.innerText = `${item.customer}`;
-//       list.appendChild(li);
-//       document.body.appendChild(list);
-        
-//       });
-//     })
-//     .then(console.log("end"));
-// }
-
-// addComment();
-// // displayComments();
-  
-  
-// </script>
-
-// </head>
-// <body>
-// </body>
-// </html>

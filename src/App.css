@@ -1,0 +1,13 @@
+ul  li  p {
+    display: inline-block;
+    width: 8%;
+    
+}
+
+.headings{
+    font-weight: bold;
+}
+
+li{
+    list-style: none;
+}
