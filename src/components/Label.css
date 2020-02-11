@@ -1,0 +1,224 @@
+.advice{
+    grid-area: advice;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 26rem;
+    line-height: 20rem;
+    border: 1px solid black;
+}
+
+.eref{
+    grid-area:eref;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 19rem;
+    line-height: 20rem;
+    box-shadow: inset 0 0 0 1000px rgb(46, 221, 46);
+    /* background-color: rgb(46, 221, 46); */
+    border: 1px solid black;
+}
+
+/* .owner{
+grid-area: owner;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
+
+.ownerLabel{
+    grid-area: ownerLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+} */
+
+.customerLabel{
+    grid-area: customerLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.customer{
+    grid-area: customer;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 4rem;
+    border: 1px solid black;
+}
+
+.meterTypeLabel{
+    grid-area: meterTypeLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.meterType{
+    grid-area: meterType;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.status{
+    grid-area: status;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 4rem;
+    border: 1px solid black;
+}
+
+.qty{
+    grid-area: qty;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.qtyLabel{
+    grid-area: qtyLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.trolleyNumber{
+    grid-area: trolleyNumber;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.trolleyNumberLabel{
+    grid-area: trolleyNumberLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.palletNumber{
+    grid-area: palletNumber;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.palletNumberLabel{
+    grid-area: palletNumberLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.description{
+    grid-area: description;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.dateLabel{
+    grid-area: dateLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.date{
+    grid-area: date;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.scrapDateLabel{
+    grid-area: scrapDateLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+}
+
+.scrapDate{
+    grid-area: scrapDate;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+}
+
+.authorLabel{
+    grid-area: authorLabel;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 2.8rem;
+    border: 1px solid black;
+    box-shadow: inset 0 0 0 1000px rgb(46, 221, 46);
+}
+
+.author{
+    grid-area: author;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    font-size: 3.5rem;
+    border: 1px solid black;
+    box-shadow: inset 0 0 0 1000px rgb(46, 221, 46);
+}
+
+
+.label{
+    width: 795px;
+    height: 1130px;
+
+    font-weight: bold;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5fr 5fr 2fr 2fr 2fr 2fr 4fr 2fr 2fr;
+
+    grid-template-areas: 
+    "advice advice advice advice"
+    "eref eref eref eref"
+    "customerLabel customer customer customer"
+    "meterTypeLabel meterType meterType meterType"
+    "status status qtyLabel qty"
+    "trolleyNumberLabel trolleyNumber palletNumberLabel palletNumber"
+    "description description description description"
+    "dateLabel date scrapDateLabel scrapDate"
+    "authorLabel author author author"
+    ;
+}
