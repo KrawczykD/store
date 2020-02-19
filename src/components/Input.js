@@ -42,6 +42,8 @@ class Input extends React.Component {
                         
                     </input>
                 </label>
+                    Job Number:
+                    <input name="jobNo" type="number" value={this.props.state.jobNo} onChange={this.props.handleChange} placeholder="Job Number"></input>
                 <label>
                     Status:
                     <select name="status" value={this.props.state.status} onChange={this.props.handleChange}>

@@ -3,9 +3,21 @@ import './Label.css'
 
 
 const List = (props)=>{
+
+    const date = (milisecond) =>{
+      
+        let date = new Date(milisecond);
+     
+        let day = date.getDate();
+        let month = date.getMonth()+1;
+        let year = date.getFullYear();
+        let finalDate = `${day}/${month}/${year}`;
+        return(finalDate)
+    }
+
     return(
         <div className="label">
-            <div className="advice">3352</div>
+            <div className="advice">{props.state.adviceNumber}</div>
             <div className="eref">E-REF</div>
             {/* <div className="ownerLabel">OWNER:</div>
             <div className="owner">E-Macquarie</div> */}
@@ -22,9 +34,9 @@ const List = (props)=>{
             <div className="palletNumber">{props.state.palletNumber}</div>
             <div className="description">{props.state.description}</div>
             <div className="dateLabel">Create Date :</div>
-            <div className="date">{props.state.date}</div>
+            <div className="date">{date(props.state.date)}</div>
             <div className="scrapDateLabel">SCRAP Date :</div>
-            <div className="scrapDate">{props.state.scrapDate}</div>
+            <div className="scrapDate">{date(props.state.scrapDate)}</div>
             <div className="authorLabel">Author :</div>
             <div className="author">Damian Krawczyk</div>
         </div>
