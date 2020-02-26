@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft , faPlus, faCheck } from '@fortawesome/free-solid-svg-icons'
+
 class Input extends React.Component {
 
     render(){
         return(
             
-            <>  
-                <button onClick={(e)=>{this.props.backButton(this.props.backButton)}}>Back</button>
-                {this.props.updateButtonVisible ? <button onClick={(e)=>{this.props.updateConfirme(this.props.updateConfirm)}}>Update</button> : <button onClick={(e)=>{this.props.addPallet()}}>AddPallet</button>}
+            <div className="Input">  
+                <button onClick={(e)=>{this.props.backButton(this.props.backButton)}}><FontAwesomeIcon icon={faArrowLeft}/></button>
+                {this.props.updateButtonVisible ? <button onClick={(e)=>{this.props.updateConfirme(this.props.updateConfirm)}}><FontAwesomeIcon icon={faCheck}/></button> : <button onClick={(e)=>{this.props.addPallet()}}><FontAwesomeIcon icon={faPlus}/></button>}
                 <label>
                     Customer:
                     <select name="customer" value={this.props.state.customer} onChange={this.props.handleChange}>
@@ -67,7 +70,7 @@ class Input extends React.Component {
                         <input type="number" name="location3" value={this.props.state.location3} onChange={this.props.handleChange} min="1" max="20"></input>
                     </form>
                 </label>
-            </>
+            </div>
         )
     }
 };

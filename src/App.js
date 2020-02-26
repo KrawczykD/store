@@ -17,10 +17,13 @@ import './App.css';
 
 
 
+
 class App extends React.Component {
 
     state = {
       colection : "test",
+
+      search: {},
       adviceNumber: null,
       palletList: [],
       customer: "",
@@ -113,17 +116,34 @@ class App extends React.Component {
     }
 
 
+    scrapCheck = (status)=>{
+      return status === "BER" ? this.state.scrapDate : null
+    }
+
+
   addPallet = async () =>{
      await db.collection(this.state.colection)
-      .insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.state.scrapDate , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3})
+      .insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.scrapCheck(this.state.status) , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3})
       await this.listVisible();
       await this.pullList();
       await this.clearInput();
+
     };
 
-    pullList = () =>{
+    // search = ()=>{
+    //   console.log(this.state.search)
+    //   this.setState({
+    //     search: {"customer" : "Mete"},
+    //   })
+
+    //   this.pullList(this.state.search)
+
+    //   console.log(this.state.search)
+    // }
+
+    pullList = (search) =>{
     db.collection(this.state.colection)
-    .find({}, {limit: 1000})   /*{"customer" : { "$exists": true }}*/
+    .find(search, {limit: 1000})   /*{"customer" : { "$exists": true }}*/
     .toArray()
     .then(item => {
       setTimeout(()=>{
@@ -252,7 +272,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
+        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
       </div>
     );
   }
