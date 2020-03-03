@@ -24,7 +24,7 @@ const List = (props)=>{
             <div className="customerLabel">CUSTOMER :</div>
             <div className="customer">{props.state.customer}</div>
             <div className="meterTypeLabel">METER TYPE :</div>
-            <dic className="meterType">{props.state.meterType}</dic>
+            <div className="meterType">{props.state.meterType}</div>
             <div className="status">{props.state.status}</div>
             <div className="qtyLabel">QTY :</div>
             <div className="qty">{props.state.qty}</div>

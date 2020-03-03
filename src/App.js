@@ -22,8 +22,8 @@ class App extends React.Component {
 
     state = {
       colection : "test",
+      password: "delete",
 
-      search: {},
       adviceNumber: null,
       palletList: [],
       customer: "",
@@ -40,6 +40,8 @@ class App extends React.Component {
       date: null,
       scrapDate : null,
       updateDate : null,
+      search: "",
+      searchQuery:{},
 
       listVisible: true,
       updateButtonVisible: false,
@@ -130,16 +132,25 @@ class App extends React.Component {
 
     };
 
-    // search = ()=>{
-    //   console.log(this.state.search)
-    //   this.setState({
-    //     search: {"customer" : "Mete"},
-    //   })
-
-    //   this.pullList(this.state.search)
-
-    //   console.log(this.state.search)
-    // }
+    search = ()=>{
+      if(this.state.search === ""){
+        this.setState({
+          searchQuery: {}
+        })
+      }
+      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG")
+        this.setState({
+          searchQuery: {itemSearch: "customer" , valueSearch: this.state.search}
+        })
+      else if(this.state.search === "5299" || this.state.search === "5394")
+        this.setState({
+          searchQuery: {itemSearch: "meterType" , valueSearch: this.state.search}
+      })
+      else if(this.state.search === "BER" || this.state.search === "Awaiting" || this.state.search === "Compleated")
+      this.setState({
+        searchQuery: {itemSearch: "status" , valueSearch: this.state.search}
+      })
+    }
 
     pullList = (search) =>{
     db.collection(this.state.colection)
@@ -153,13 +164,26 @@ class App extends React.Component {
     }
 
     deleteItem = async (e,id)=>{
-      if (window.confirm("Do you want delete this pallet?")) {
-      await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
-      await this.pullList();
-      } else {
+      var return_value=prompt("Do you want delete this pallet?");
+      if(return_value===this.state.password){
+        await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+        await this.pullList();
+      
+      }else if(return_value === null){
         return 0
       }
+      else{
+        console.log(return_value)
+          return window.alert("Wrong Password!");
+      }
     }
+      
+      // if (window.confirm("Do you want delete this pallet?")) {
+      // await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+      // await this.pullList();
+      // } else {
+      //   return 0
+      // }
 
   
 
@@ -272,7 +296,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
-        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
+        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton} handleChange={this.handleChange} state={this.state}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
       </div>
     );
   }
