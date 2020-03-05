@@ -21,8 +21,8 @@ import './App.css';
 class App extends React.Component {
 
     state = {
-      colection : "test",
-      password: "delete",
+      colection : "electric",
+      password: "Erefurb",
 
       adviceNumber: null,
       palletList: [],
@@ -215,12 +215,23 @@ class App extends React.Component {
     }
 
     updateConfirme = async () =>{
-      await db.collection(this.state.colection).updateOne({"_id": { "$oid" : this.state.updateItemNo }}, {"$set": {"customer":this.state.customer , "meterType": this.state.meterType , "qty": this.state.qty , "palletNumber": this.state.palletNumber , "trolleyNumber" : this.state.trolleyNumber , "jobNo" : this.state.jobNo , "status" : this.state.status , "updateDate" : this.state.updateDate , "description" : this.state.description , "location1" : this.state.location1 , "location2": this.state.location2 , "location3" : this.state.location3 }} , { "upsert": false });
-      // await this.clearInput(); 
-      await this.listVisible();
-      await this.updateButtonVisible(false);
-      await this.clearInput()
-      await this.pullList();
+      var return_value=prompt("Do you want update this pallet?");
+      if(return_value===this.state.password){
+
+          await db.collection(this.state.colection).updateOne({"_id": { "$oid" : this.state.updateItemNo }}, {"$set": {"customer":this.state.customer , "meterType": this.state.meterType , "qty": this.state.qty , "palletNumber": this.state.palletNumber , "trolleyNumber" : this.state.trolleyNumber , "jobNo" : this.state.jobNo , "status" : this.state.status , "updateDate" : this.state.updateDate , "description" : this.state.description , "location1" : this.state.location1 , "location2": this.state.location2 , "location3" : this.state.location3 }} , { "upsert": false });
+          // await this.clearInput(); 
+          await this.listVisible();
+          await this.updateButtonVisible(false);
+          await this.clearInput()
+          await this.pullList();
+        
+      }else if(return_value === null){
+        return 0
+      }
+      else{
+        console.log(return_value)
+          return window.alert("Wrong Password!");
+      }
     }
 
     backButton = ()=>{
