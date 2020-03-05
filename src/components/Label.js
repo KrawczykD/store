@@ -15,7 +15,8 @@ const List = (props)=>{
         return(finalDate)
     }
 
-    return(
+    return(<>
+            {console.log(props.state.scrapDate)}
         <div className="label">
             <div className="advice">{props.state.adviceNumber}</div>
             <div className="eref">E-REF</div>
@@ -36,10 +37,11 @@ const List = (props)=>{
             <div className="dateLabel">Create Date :</div>
             <div className="date">{date(props.state.date)}</div>
             <div className="scrapDateLabel">SCRAP Date :</div>
-            <div className="scrapDate">{date(props.state.scrapDate)}</div>
+            <div className="scrapDate">{props.state.scrapDate === null ? "" : date(props.state.scrapDate)}</div>
             <div className="authorLabel">Author :</div>
             <div className="author">Damian Krawczyk</div>
         </div>
+        </>
     )
 }
 
