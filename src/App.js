@@ -16,13 +16,10 @@ import './App.css';
     client.auth.loginWithCredential(new AnonymousCredential());
 
 
-
-
 class App extends React.Component {
 
     state = {
-      colection : "electric",
-      password: "Erefurb",
+      colection : "test",
 
       adviceNumber: null,
       palletList: [],
@@ -138,7 +135,7 @@ class App extends React.Component {
           searchQuery: {}
         })
       }
-      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG")
+      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE")
         this.setState({
           searchQuery: {itemSearch: "customer" , valueSearch: this.state.search}
         })
@@ -146,7 +143,7 @@ class App extends React.Component {
         this.setState({
           searchQuery: {itemSearch: "meterType" , valueSearch: this.state.search}
       })
-      else if(this.state.search === "BER" || this.state.search === "Awaiting" || this.state.search === "Compleated")
+      else if(this.state.search === "BER" || this.state.search === "Awaiting" || this.state.search === "Compleated" || this.state.search === "Inprogress")
       this.setState({
         searchQuery: {itemSearch: "status" , valueSearch: this.state.search}
       })
@@ -163,29 +160,40 @@ class App extends React.Component {
       })
     }
 
+
     deleteItem = async (e,id)=>{
       var return_value=prompt("Do you want delete this pallet?");
-      if(return_value===this.state.password){
-        await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
-        await this.pullList();
-      
-      }else if(return_value === null){
-        return 0
-      }
-      else{
-        console.log(return_value)
+      client.callFunction("password" , [return_value, id]).then(async item=>{ 
+        if(item === true){
+          await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+          await this.pullList();
+        
+        }else if(item === false){
           return window.alert("Wrong Password!");
-      }
+        }
+        else{
+            return 0
+        }
+      })
     }
-      
-      // if (window.confirm("Do you want delete this pallet?")) {
-      // await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
-      // await this.pullList();
-      // } else {
-      //   return 0
-      // }
 
-  
+    // deleteItem = (e,id)=>{
+    //     var return_value=prompt("Do you want delete this pallet?");
+    //     client.callFunction("delete" , [return_value , id, Stitch]).then(async item=>{ 
+    //       console.log(item)
+    //       if(item === true){
+    //         this.pullList()
+    //         return window.alert("Deleted!");
+          
+    //       }else if(item === false){
+    //         return window.alert("Wrong Password!");
+    //       }
+    //       else{
+    //           return 0
+    //       }
+    //     })
+    //   }
+
 
     updateItem = async (e,id)=>{
       db.collection(this.state.colection).find({"_id": { "$oid" : id }}).toArray().then(item=>{
@@ -216,8 +224,8 @@ class App extends React.Component {
 
     updateConfirme = async () =>{
       var return_value=prompt("Do you want update this pallet?");
-      if(return_value===this.state.password){
-
+      client.callFunction("password" , [return_value]).then(async item=>{
+      if(item === true){
           await db.collection(this.state.colection).updateOne({"_id": { "$oid" : this.state.updateItemNo }}, {"$set": {"customer":this.state.customer , "meterType": this.state.meterType , "qty": this.state.qty , "palletNumber": this.state.palletNumber , "trolleyNumber" : this.state.trolleyNumber , "jobNo" : this.state.jobNo , "status" : this.state.status , "updateDate" : this.state.updateDate , "description" : this.state.description , "location1" : this.state.location1 , "location2": this.state.location2 , "location3" : this.state.location3 }} , { "upsert": false });
           // await this.clearInput(); 
           await this.listVisible();
@@ -225,13 +233,13 @@ class App extends React.Component {
           await this.clearInput()
           await this.pullList();
         
-      }else if(return_value === null){
-        return 0
+      }else if(item === false){
+        return window.alert("Wrong Password!");
       }
       else{
-        console.log(return_value)
-          return window.alert("Wrong Password!");
+          return 0;
       }
+    })
     }
 
     backButton = ()=>{

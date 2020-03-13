@@ -16,6 +16,7 @@ class Input extends React.Component {
                         <option value=""></option>
                         <option value="Macquarie BG">Macquarie BG</option>
                         <option value="Meterfit BG">Meterfit BG</option>
+                        <option value="SSE">SSE</option>
                     </select>
                 </label>
                 <label>
@@ -53,6 +54,7 @@ class Input extends React.Component {
                         <option value="Compleated">Compleated</option>
                         <option value="Awaiting">Awaiting</option>
                         <option value="BER">BER</option>
+                        <option value="Inprogress">Inprogress</option>
                     </select>
                 </label>
                 <label>

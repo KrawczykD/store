@@ -201,7 +201,8 @@ grid-area: owner;
 
 .label{
     width: 795px;
-    height: 1130px;
+    max-height: 1130px;
+
 
     font-weight: bold;
 

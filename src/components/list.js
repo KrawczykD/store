@@ -50,10 +50,12 @@ const list = (props) =>{
                         <option value="">All</option>
                         <option value="Macquarie BG">Macquarie BG</option>
                         <option value="Meterfit BG">Meterfit BG</option>
+                        <option value="SSE">SSE</option>
                         <option value="5299">5299 ( 140mm )</option>
                         <option value="5394">5394 ( 120mm )</option>
                         <option value="Compleated">Compleated</option>
                         <option value="Awaiting">Awaiting</option>
+                        <option value="Inprogress">Inprogress</option>
                         <option value="BER">BER</option>
                 </select>
             </div>
