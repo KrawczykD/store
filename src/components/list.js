@@ -57,6 +57,8 @@ const list = (props) =>{
                         <option value="Awaiting">Awaiting</option>
                         <option value="Inprogress">Inprogress</option>
                         <option value="BER">BER</option>
+                        <option value="Ready to be shipped">Ready to be shipped</option>
+                        <option value="Parts">Parts</option>
                 </select>
             </div>
             {headings}

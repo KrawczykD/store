@@ -135,7 +135,7 @@ class App extends React.Component {
           searchQuery: {}
         })
       }
-      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE")
+      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE" || this.state.search ==="Parts")
         this.setState({
           searchQuery: {itemSearch: "customer" , valueSearch: this.state.search}
         })
@@ -143,7 +143,7 @@ class App extends React.Component {
         this.setState({
           searchQuery: {itemSearch: "meterType" , valueSearch: this.state.search}
       })
-      else if(this.state.search === "BER" || this.state.search === "Awaiting" || this.state.search === "Compleated" || this.state.search === "Inprogress")
+      else if(this.state.search === "BER" || this.state.search === "Awaiting" || this.state.search === "Compleated" || this.state.search === "Inprogress" || this.state.search === "Ready to be shipped")
       this.setState({
         searchQuery: {itemSearch: "status" , valueSearch: this.state.search}
       })
