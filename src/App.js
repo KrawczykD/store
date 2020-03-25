@@ -280,7 +280,7 @@ class App extends React.Component {
           printVisible:true
         })
       })
-      this.print();
+     await this.print();
     }
 
     // update = (e, id)=>{

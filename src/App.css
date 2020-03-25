@@ -113,6 +113,18 @@ button:hover{
 
 
 
+@media print {
+    html, body {
+        height: auto;
+        font-size: 11px; /* changing to 10pt has no impact */
+    }
+
+}
+
+@page {
+    margin: 10px;
+}
+
 
 @media screen and (max-width: 1023px) {
 
