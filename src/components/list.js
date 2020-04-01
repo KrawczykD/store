@@ -30,7 +30,7 @@ const list = (props) =>{
     let palletList = [...props.palletList];
 
 
-    const newPalletList = palletList.filter(item=> item[`${props.state.searchQuery.itemSearch}`] === props.state.searchQuery.valueSearch)
+    const newPalletList = palletList.filter(item=> item[`${props.state.searchQuery.itemSearch}`] === props.state.searchQuery.valueSearch && item.deleted === false)
 
 
     let list = [];
@@ -59,6 +59,7 @@ const list = (props) =>{
                         <option value="BER">BER</option>
                         <option value="Ready to be shipped">Ready to be shipped</option>
                         <option value="Parts">Parts</option>
+                        {/* <option value="Deleted">DELETED</option> */}
                 </select>
             </div>
             {headings}

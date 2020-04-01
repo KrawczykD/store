@@ -37,6 +37,7 @@ class App extends React.Component {
       date: null,
       scrapDate : null,
       updateDate : null,
+      deleted: false,
       search: "",
       searchQuery:{},
 
@@ -122,7 +123,7 @@ class App extends React.Component {
 
   addPallet = async () =>{
      await db.collection(this.state.colection)
-      .insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.scrapCheck(this.state.status) , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3})
+      .insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.scrapCheck(this.state.status) , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3 , deleted: this.state.deleted})
       await this.listVisible();
       await this.pullList();
       await this.clearInput();
@@ -132,7 +133,8 @@ class App extends React.Component {
     search = ()=>{
       if(this.state.search === ""){
         this.setState({
-          searchQuery: {}
+          searchQuery:{}
+          // searchQuery: { itemSearch: "deleted" , valueSearch: false }
         })
       }
       else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE" || this.state.search ==="Parts")
@@ -147,6 +149,12 @@ class App extends React.Component {
       this.setState({
         searchQuery: {itemSearch: "status" , valueSearch: this.state.search}
       })
+
+      // else if(this.state.search === "Deleted")
+      // this.setState({
+      //   searchQuery: {itemSearch: "deleted" , valueSearch: true}
+      // })
+      ///////
     }
 
     pullList = (search) =>{
@@ -165,7 +173,9 @@ class App extends React.Component {
       var return_value=prompt("Do you want delete this pallet?");
       client.callFunction("password" , [return_value, id]).then(async item=>{ 
         if(item === true){
-          await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+          // await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+          await db.collection(this.state.colection).updateOne({"_id": { "$oid" : id }}, {"$set": {"deleted": true}} , { "upsert": false });
+          await this.search();
           await this.pullList();
         
         }else if(item === false){

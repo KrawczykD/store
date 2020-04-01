@@ -62,7 +62,7 @@ class Input extends React.Component {
                 </label>
                 <label>
                 <p className="inputLabel">Description:</p>
-                    <input name="description" value={this.props.state.description} onChange={this.props.handleChange} placeholder="Description">
+                    <input name="description" value={this.props.state.description} onChange={this.props.handleChange} placeholder="Description" maxlength="200">
                         
                     </input>
                 </label>
