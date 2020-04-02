@@ -103,6 +103,23 @@ button:hover{
 }
 
 
+.checkButton{
+    /* flex-basis: 50px;
+    height: 50px;
+    border: none;
+    text-decoration: none;
+    background-color: white;
+    border-radius: 50px;
+    -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.55);
+    box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.55);  */
+    display: inline-block;
+    flex-basis: 2%;
+    height: 35px;
+    outline: none;
+}
+
+
 .searchSelect{
     display: inline-block;
     flex-basis: 10%;

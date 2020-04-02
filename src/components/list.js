@@ -29,15 +29,25 @@ const list = (props) =>{
 
     let palletList = [...props.palletList];
 
-
-    const newPalletList = palletList.filter(item=> item[`${props.state.searchQuery.itemSearch}`] === props.state.searchQuery.valueSearch && item.deleted === false)
-
-
+    let newPalletList = [];
+    let headings ;
     let list = [];
-    const headings = <ul className="headings"><li><p>Advice Number</p> <p>Customer</p> <p>Meter Type</p> <p>Quantity</p> <p>Pallet Number</p> <p>Trolley Number</p> <p>Job Number</p> <p>Status</p> <p>Create Date</p> <p>Scrap Date BER</p> <p>Update Date</p> <p>Description</p> <p>Location</p></li></ul>
-    newPalletList.forEach(element => {
-    list.push(<li className={berCheck(element)} key={element._id}><p>{element.adviceNumber}</p> <p>{element.customer}</p> <p>{element.meterType}</p> <p>{element.qty}</p> <p>{element.palletNumber}</p> <p>{element.trolleyNumber}</p> <p>{element.jobNo}</p> <p>{element.status}</p> <p>{date(element.date)}</p> <p>{date(element.scrapDate)}</p> <p>{date(element.updateDate)}</p> <p>{element.description}</p> <p>{element.location1}/{element.location2}/{element.location3}</p><div className="buttons"><button onClick={(e)=>{props.updateItem(e,element._id.toString())}}><FontAwesomeIcon icon={faEdit} /></button><button onClick={(e)=>{props.delete(e,element._id.toString())}}><FontAwesomeIcon icon={faTrashAlt} /></button><button onClick={(e)=>{props.printButton(e,element._id.toString())}}><FontAwesomeIcon icon={faPrint} /></button></div></li>)
+
+    if(props.state.archive === true){
+        newPalletList = palletList.filter(item=> item[`${props.state.searchQuery.itemSearch}`] === props.state.searchQuery.valueSearch && item.deleted === true)
+
+        headings = <ul className="headings"><li><p>Advice Number</p> <p>Customer</p> <p>Meter Type</p> <p>Quantity</p> <p>Pallet Number</p> <p>Trolley Number</p> <p>Job Number</p> <p>Status</p> <p>Create Date</p> <p>Scrap Date BER</p> <p>Update Date</p> <p>Description</p> <p>Location</p></li></ul>
+        newPalletList.forEach(element => {
+        list.push(<li className={berCheck(element)} key={element._id}><p>{element.adviceNumber}</p> <p>{element.customer}</p> <p>{element.meterType}</p> <p>{element.qty}</p> <p>{element.palletNumber}</p> <p>{element.trolleyNumber}</p> <p>{element.jobNo}</p> <p>{element.status}</p> <p>{date(element.date)}</p> <p>{date(element.scrapDate)}</p> <p>{date(element.updateDate)}</p> <p>{element.description}</p> <p>{element.location1}/{element.location2}/{element.location3}</p><div className="buttons"><button onClick={(e)=>{props.printButton(e,element._id.toString())}}><FontAwesomeIcon icon={faPrint} /></button></div></li>)
     });
+    } else if(props.state.archive === false){
+        newPalletList = palletList.filter(item=> item[`${props.state.searchQuery.itemSearch}`] === props.state.searchQuery.valueSearch && item.deleted === false)
+
+        headings = <ul className="headings"><li><p>Advice Number</p> <p>Customer</p> <p>Meter Type</p> <p>Quantity</p> <p>Pallet Number</p> <p>Trolley Number</p> <p>Job Number</p> <p>Status</p> <p>Create Date</p> <p>Scrap Date BER</p> <p>Update Date</p> <p>Description</p> <p>Location</p></li></ul>
+        newPalletList.forEach(element => {
+        list.push(<li className={berCheck(element)} key={element._id}><p>{element.adviceNumber}</p> <p>{element.customer}</p> <p>{element.meterType}</p> <p>{element.qty}</p> <p>{element.palletNumber}</p> <p>{element.trolleyNumber}</p> <p>{element.jobNo}</p> <p>{element.status}</p> <p>{date(element.date)}</p> <p>{date(element.scrapDate)}</p> <p>{date(element.updateDate)}</p> <p>{element.description}</p> <p>{element.location1}/{element.location2}/{element.location3}</p><div className="buttons"><button onClick={(e)=>{props.updateItem(e,element._id.toString())}}><FontAwesomeIcon icon={faEdit} /></button><button onClick={(e)=>{props.delete(e,element._id.toString())}}><FontAwesomeIcon icon={faTrashAlt} /></button><button onClick={(e)=>{props.printButton(e,element._id.toString())}}><FontAwesomeIcon icon={faPrint} /></button></div></li>)
+    });
+    }
 
     return(
         <div className="List">
@@ -61,6 +71,10 @@ const list = (props) =>{
                         <option value="Parts">Parts</option>
                         {/* <option value="Deleted">DELETED</option> */}
                 </select>
+                <>
+                <label>Archive</label>
+                <input className="checkButton" name="archive" type="checkbox" onChange={props.handleArchive} value={props.state.archive}></input>
+                </>
             </div>
             {headings}
             </div>

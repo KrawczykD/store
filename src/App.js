@@ -19,7 +19,8 @@ import './App.css';
 class App extends React.Component {
 
     state = {
-      colection : "test",
+      colection : "electric",
+      archive: false,
 
       adviceNumber: null,
       palletList: [],
@@ -320,12 +321,15 @@ class App extends React.Component {
     //     return 0;
     //   }
     
+    handleArchive = (e)=>{
+      this.setState({archive: e.target.checked})
+    }
 
 
   render(){
     return (
       <div className="App">
-        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton} handleChange={this.handleChange} state={this.state}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
+        {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton} handleChange={this.handleChange} handleArchive={this.handleArchive} state={this.state}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
       </div>
     );
   }
