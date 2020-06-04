@@ -2,6 +2,7 @@ import React from 'react';
 import List from './components/List';
 import Input from './components/Input';
 import Label from './components/Label';
+import Spiner from './components/Spiner';
 import './App.css';
 
 
@@ -19,7 +20,7 @@ import './App.css';
 class App extends React.Component {
 
     state = {
-      colection : "electric",
+      colection : "test",
       archive: false,
 
       adviceNumber: null,
@@ -41,12 +42,14 @@ class App extends React.Component {
       deleted: false,
       search: "",
       searchQuery:{},
+      spinner: true,
 
       listVisible: true,
       updateButtonVisible: false,
       printVisible : false,
       updateItemNo: "",
     }
+    
 
     componentDidMount(){
       this.pullList();
@@ -96,8 +99,8 @@ class App extends React.Component {
         scrapDate: this.date(1000 * 60 * 60 * 24 * 91), // last digit = days 
         updateDate: null
       })
+      
     }
-
     date = (addMonth)=>{
       let date = new Date();
       date = date.setMilliseconds(addMonth);
@@ -138,11 +141,11 @@ class App extends React.Component {
           // searchQuery: { itemSearch: "deleted" , valueSearch: false }
         })
       }
-      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE" || this.state.search ==="Parts")
+      else if(this.state.search === "Macquarie BG" || this.state.search === "Meterfit BG" || this.state.search === "SSE" || this.state.search === "Meterfit Eon" || this.state.search === "Macquarie Eon" || this.state.search ==="Parts")
         this.setState({
           searchQuery: {itemSearch: "customer" , valueSearch: this.state.search}
         })
-      else if(this.state.search === "5299" || this.state.search === "5394")
+      else if(this.state.search === "5299" || this.state.search === "5394" || this.state.search === "5424")
         this.setState({
           searchQuery: {itemSearch: "meterType" , valueSearch: this.state.search}
       })
@@ -164,7 +167,7 @@ class App extends React.Component {
     .toArray()
     .then(item => {
       setTimeout(()=>{
-        this.setState({palletList:item})
+        this.setState({palletList:item , spinner: false})
       },0)
       })
     }
@@ -328,9 +331,12 @@ class App extends React.Component {
 
   render(){
     return (
+      <>
       <div className="App">
         {this.state.printVisible ? <Label state={this.state}></Label> : this.state.listVisible ? <List search = {this.search} palletList = {this.state.palletList} updateItem={this.updateItem} delete={this.deleteItem} addPallet={this.addPallet} addPalletButton={this.addPalletButton} printButton={this.printButton} handleChange={this.handleChange} handleArchive={this.handleArchive} state={this.state}></List> : <Input backButton={this.backButton} updateButtonVisible={this.state.updateButtonVisible} updateConfirme={this.updateConfirme} addPalletButton={this.addPalletButton} addPallet={this.addPallet} handleChange={this.handleChange} state={this.state}></Input>}
       </div>
+      <Spiner spinnerState={this.state.spinner}></Spiner>
+      </>
     );
   }
 }

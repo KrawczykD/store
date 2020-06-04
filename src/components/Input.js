@@ -17,6 +17,8 @@ class Input extends React.Component {
                         <option value="Macquarie BG">Macquarie BG</option>
                         <option value="Meterfit BG">Meterfit BG</option>
                         <option value="SSE">SSE</option>
+                        <option value="Meterfit Eon">Meterfit Eon</option>
+                        <option value="Macquarie Eon">Macquarie Eon</option>
                         <option value="Parts">Parts</option>
                     </select>
                 </label>
@@ -26,6 +28,7 @@ class Input extends React.Component {
                         <option value=""></option>
                         <option value="5299">5299 ( 140mm )</option>
                         <option value="5394">5394 ( 120mm )</option>
+                        <option value="5424">5424 ( 100mm )</option>
                     </select>
                 </label>
                 <label>
@@ -62,7 +65,7 @@ class Input extends React.Component {
                 </label>
                 <label>
                 <p className="inputLabel">Description:</p>
-                    <input name="description" value={this.props.state.description} onChange={this.props.handleChange} placeholder="Description" maxlength="200">
+                    <input name="description" value={this.props.state.description} onChange={this.props.handleChange} placeholder="Description" maxLength="200">
                         
                     </input>
                 </label>

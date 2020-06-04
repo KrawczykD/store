@@ -6,6 +6,9 @@
     font-family: 'Lato', sans-serif;
 }
 
+.App{
+    position: relative;
+}
 
 .ber{
     /* background: rgb(161,19,19);

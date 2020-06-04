@@ -61,8 +61,11 @@ const list = (props) =>{
                         <option value="Macquarie BG">Macquarie BG</option>
                         <option value="Meterfit BG">Meterfit BG</option>
                         <option value="SSE">SSE</option>
+                        <option value="Meterfit Eon">Meterfit Eon</option>
+                        <option value="Macquarie Eon">Macquarie Eon</option>
                         <option value="5299">5299 ( 140mm )</option>
                         <option value="5394">5394 ( 120mm )</option>
+                        <option value="5424">5424 ( 100mm )</option>
                         <option value="Compleated">Compleated</option>
                         <option value="Awaiting">Awaiting</option>
                         <option value="Inprogress">Inprogress</option>
