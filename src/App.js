@@ -20,7 +20,7 @@ import './App.css';
 class App extends React.Component {
 
     state = {
-      colection : "electric",
+      colection : "test",
       archive: false,
 
       adviceNumber: null,
