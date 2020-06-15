@@ -20,7 +20,7 @@ import './App.css';
 class App extends React.Component {
 
     state = {
-      colection : "test",
+      colection : "electric",
       archive: false,
 
       adviceNumber: null,
@@ -125,13 +125,23 @@ class App extends React.Component {
     }
 
 
-  addPallet = async () =>{
-     await db.collection(this.state.colection)
-      .insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.scrapCheck(this.state.status) , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3 , deleted: this.state.deleted})
+  addPallet = async (e,id) =>{
+    var return_value=prompt("Do you want delete this pallet?");
+    client.callFunction("password" , [return_value, id]).then(async item=>{ 
+      if(item === true){
+        // await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
+        await db.collection(this.state.colection).insertOne({ owner_id : client.auth.user.id, adviceNumber: this.state.adviceNumber ,customer: this.state.customer , meterType: this.state.meterType , qty: this.state.qty , palletNumber: this.state.palletNumber , trolleyNumber : this.state.trolleyNumber , jobNo : this.state.jobNo , status : this.state.status , date: this.state.date , scrapDate: this.scrapCheck(this.state.status) , updateDate: this.state.updateDate , description : this.state.description , location1 : this.state.location1 , location2: this.state.location2, location3 :this.state.location3 , deleted: this.state.deleted})
       await this.listVisible();
       await this.pullList();
       await this.clearInput();
-
+      
+      }else if(item === false){
+        return window.alert("Wrong Password!");
+      }
+      else{
+          return 0
+      }
+    })
     };
 
     search = ()=>{
