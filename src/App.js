@@ -126,7 +126,7 @@ class App extends React.Component {
 
 
   addPallet = async (e,id) =>{
-    var return_value=prompt("Do you want delete this pallet?");
+    var return_value=prompt("Do you want add this pallet?");  
     client.callFunction("password" , [return_value, id]).then(async item=>{ 
       if(item === true){
         // await db.collection(this.state.colection).deleteOne({"_id": { "$oid" : id }});
