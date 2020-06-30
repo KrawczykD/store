@@ -234,6 +234,8 @@ class App extends React.Component {
           location2: item[0].location2,
           location3: item[0].location3,
           updateDate: this.date(1000 * 60 * 60 * 24 * 0),
+          date: this.date(1000 * 60 * 60 * 24 * 0),
+          scrapDate: this.date(1000 * 60 * 60 * 24 * 91), // last digit = days 
           updateItemNo: id,
         })
         this.listVisible();
@@ -250,7 +252,7 @@ class App extends React.Component {
       var return_value=prompt("Do you want update this pallet?");
       client.callFunction("password" , [return_value]).then(async item=>{
       if(item === true){
-          await db.collection(this.state.colection).updateOne({"_id": { "$oid" : this.state.updateItemNo }}, {"$set": {"customer":this.state.customer , "meterType": this.state.meterType , "qty": this.state.qty , "palletNumber": this.state.palletNumber , "trolleyNumber" : this.state.trolleyNumber , "jobNo" : this.state.jobNo , "status" : this.state.status , "updateDate" : this.state.updateDate , "description" : this.state.description , "location1" : this.state.location1 , "location2": this.state.location2 , "location3" : this.state.location3 }} , { "upsert": false });
+          await db.collection(this.state.colection).updateOne({"_id": { "$oid" : this.state.updateItemNo }}, {"$set": {"customer":this.state.customer , "meterType": this.state.meterType , "qty": this.state.qty , "palletNumber": this.state.palletNumber , "trolleyNumber" : this.state.trolleyNumber , "jobNo" : this.state.jobNo , "status" : this.state.status ,"scrapDate" : this.scrapCheck(this.state.status), "updateDate" : this.state.updateDate , "description" : this.state.description , "location1" : this.state.location1 , "location2": this.state.location2 , "location3" : this.state.location3 }} , { "upsert": false });
           // await this.clearInput(); 
           await this.listVisible();
           await this.updateButtonVisible(false);

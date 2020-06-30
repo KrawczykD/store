@@ -10,7 +10,7 @@ const list = (props) =>{
 
 
         if(milisecond == null || undefined){
-            return ("No Update")
+            return ("")
         } else {
       
         let date = new Date(milisecond);
